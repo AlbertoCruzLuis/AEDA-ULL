@@ -9,6 +9,9 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+#include <iostream>
+#include <cassert>
+
 namespace AEDA
 {
 template <class TDato>
@@ -18,14 +21,21 @@ class queue
     queue();
     queue(int);
     ~queue();
-    int get_size()
-    { return size_; }
     void push(TDato);
     TDato pop();
     bool is_empty();
     bool is_full();
+    TDato& front();
+    TDato& back();
+    void write(std::ostream& os = std::cout);
+    int get_size()
+    { return size_; }
+
   private:
     TDato* type_;
+    int front_;
+    int back_;
+    //Tamaño reservado a la cola
     int size_;
     void build_queue(int sz)
     { 
@@ -42,6 +52,7 @@ class queue
       } 
     }
 };
+}
 
 #include "queue.cpp"
 #endif
