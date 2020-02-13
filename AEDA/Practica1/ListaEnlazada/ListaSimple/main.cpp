@@ -7,10 +7,26 @@
 //==============================================================
 
 #include "sll_node.h"
+#include "sll.h"
 
 int main()
 {
-    AEDA::sll_node<int> A(10);
-    A.write();
+    AEDA::sll<int> List_A;
+    for(int i = 0; i < 6; i++)
+        List_A.insert_head(new AEDA::sll_node<int>(i));
+    List_A.write();
+    AEDA::sll_node<int>* nodo = List_A.extract_head();
+    std::cout << "Dato del nodo Extraido: " <<nodo->get_data() << "\n";
+    delete nodo;
+
+    AEDA::sll<char> List_B;
+    AEDA::sll_node<char>* letter_a = new AEDA::sll_node<char>('a');
+    List_B.insert_head(letter_a);
+    for(int i = 0; i < 4; i++)
+    {
+        List_B.insert_after(letter_a,new AEDA::sll_node<char>('c' + i));
+    }
+    List_B.write();
+    std::cout << "Resultado de la Busqueda: " << List_B.search('d');
     return 0;
 }

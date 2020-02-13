@@ -19,7 +19,7 @@ class sll_node
   public:
     sll_node();
     sll_node(const TDato&);
-    ~sll_node();
+    ~sll_node(){}
     sll_node<TDato>* get_next()
     { return next_; }
     void set_next(sll_node<TDato>* next)
@@ -34,7 +34,26 @@ class sll_node
     sll_node<TDato>* next_;
     TDato data_;
 };
+
+template <class TDato>
+sll_node<TDato>::sll_node() :
+next_(nullptr),
+data_()
+{}
+
+//Construir la lista simple con un dato
+template <class TDato>
+sll_node<TDato>::sll_node(const TDato& data) :
+next_(nullptr),
+data_(data)
+{}
+
+//Mostrar los datos de la lista simple
+template <class TDato>
+void sll_node<TDato>::write(std::ostream& os)
+{
+  os << data_;
+}
 }
 
-#include "sll_node.cpp"
 #endif
