@@ -9,6 +9,9 @@
 #ifndef STACK_H
 #define STACK_H
 
+#include <cassert>
+#include <iostream>
+
 namespace AEDA
 {
 template <class TDato>
@@ -28,6 +31,8 @@ class stack
     TDato pop();
     bool is_empty();
     bool is_full();
+    stack<TDato> operator+ (const stack<TDato>&);
+    void write(std::ostream& os = std::cout);
 
   private:
     TDato* type_;
@@ -112,6 +117,26 @@ bool stack<TDato>::is_full()
 {
   return ((size_ - 1) == top_);
 }
+
+//Sobrecargamos el operador + para sumar dos pilas
+template <class TDato>
+stack<TDato> stack<TDato>::operator+ (const stack<TDato>& a)
+{
+  assert(size_ == a.size_);
+  stack<TDato> sum(size_);
+  for(int i = 0; i < size_; i++)
+    sum.type_[i] = type_[i] + a.type_[i];
+  return sum;
+}
+
+//Sobrecarga operador<< salida para mostrar los datos de la pila
+template <class TDato>
+void stack<TDato>::write(std::ostream& os)
+{
+  for(int i = 0; i < size_; i++)
+    os << "Dato[" << i << "] = " << type_[i] << "\n";
+}
+
 }
 
 #endif

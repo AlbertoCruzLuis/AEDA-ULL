@@ -15,7 +15,9 @@ int main()
     for(int i = 0; i < 6; i++)
         List_A.insert_head(new AEDA::sll_node<int>(i));
     List_A.write();
+    std::cout << "Tamaño de la Lista: " << List_A.size() << "\n";
     AEDA::sll_node<int>* nodo = List_A.extract_head();
+    std::cout << "Tamaño de la Lista: " << List_A.size() << "\n";
     std::cout << "Dato del nodo Extraido: " <<nodo->get_data() << "\n";
     delete nodo;
 

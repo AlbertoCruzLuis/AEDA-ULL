@@ -29,6 +29,7 @@ class sll
     bool is_empty() const;
     void write(std::ostream& os = std::cout);
     bool search(const TDato&);
+    int size();
 
   private:
     sll_node<TDato>* head_;
@@ -142,6 +143,21 @@ bool sll<TDato>::search(const TDato& dato)
     aux = aux->get_next();
   }
 }
+
+//Tamaño de la lista
+template <class TDato>
+int sll<TDato>::size()
+{
+  int sz = 0;
+  sll_node<TDato>* aux = head_;
+  while(aux != nullptr)
+  {
+    sz++;
+    aux = aux->get_next();
+  }
+  return sz;
+}
+
 }
 
 #endif

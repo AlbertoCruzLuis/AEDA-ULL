@@ -31,5 +31,16 @@ int main()
     A.pop();
     B.pop();
   }
+
+  //Sumar dos Pilas de enteros
+  AEDA::stack<int> a(5),b(5),sum(5);
+  for(int i = 0; i < a.get_size(); i++)
+  {
+    a.push(i+10);
+    b.push(i);
+  }
+  (a + b).write();
+
+
   return 0;
 }
