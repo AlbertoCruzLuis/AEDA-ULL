@@ -30,29 +30,27 @@ int main()
 
     //Creamos un Profesor 2
     Profesor profe2;
-    profe.dni = "456778888";
-    profe.name = "Felipe";
+    profe2.dni = "456778888";
+    profe2.name = "Felipe";
 
     //Ahora metemos el Profesor en el nodo
-    AEDA::sll_node<Profesor> *node_profesor = new AEDA::sll_node<Profesor>;
+    AEDA::sll_node<Profesor> *node_profesor = new AEDA::sll_node<Profesor>(profe);
+    AEDA::sll_node<Profesor> *node_profesor2 = new AEDA::sll_node<Profesor>(profe2);
     
     //Creamos una vector de Asignaturas
     AEDA::vector<Asignatura> Asignaturas(2);
 
     //1 Asigantura matematicas
-    //Asignaturas.resize(1);
     Asignaturas[0].cod = "01";
     Asignaturas[0].name = "Matematicas";
     Asignaturas[0].list_profesores.insert_head(node_profesor);
-    node_profesor->set_data(profe2);
+    
     //2 Asignatura
-    //Asignaturas.resize(2);
     Asignaturas[1].cod = "02";
     Asignaturas[1].name = "Lengua";
-    Asignaturas[1].list_profesores.insert_head(node_profesor);
-    node_profesor->set_data(profe);
+    Asignaturas[1].list_profesores.insert_head(node_profesor2);
 
-    ver_profesorado(Asignaturas, "02");
+    ver_profesorado(Asignaturas, "01");
 
     return 0;
 }
