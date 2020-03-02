@@ -8,10 +8,9 @@
 
 #include "tablero.h"
 
-AEDA::Tablero::Tablero(int n, int m, int turno) :
+AEDA::Tablero::Tablero(int n, int m) :
 n_(n),
-m_(m),
-turno_(turno)
+m_(m)
 {
   //Se crea un vector puntero para que cada vector en la matriz 
   //tenga diferente direcciones de memoria
@@ -35,13 +34,17 @@ void AEDA::Tablero::poner_celula_viva(int n, int m)
 
 void AEDA::Tablero::print(std::ostream& os)
 {
-  for(int i = 0; i < n_; i++)
+  for(int i = -1; i <= n_+2; i++)
   {
-    for(int j = 0; j < m_; j++)
+    for(int j = -1; j <= m_+2; j++)
     {
       //Arreglar me muestra la Direccion de Memoria
       //os << &malla_[i][j];
-      malla_[i]->data()[j]->print(os);
+      //Colocar un marco exterior
+      if((i == -1) || (i == n_+2) || (j == -1) || (j == m_+2))
+        os << "|";
+      else
+        malla_[i]->data()[j]->print(os);
     }
     os << "\n";
   }

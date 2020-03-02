@@ -10,10 +10,13 @@
 #define CELULA_H
 
 #include <iostream>
-//#include "tablero.h"
 
 namespace AEDA
 {
+
+//Declaramos la clase asi para evitar que se produzca un buble infinito
+class Tablero;
+
 class Celula
 {
   public:
@@ -23,8 +26,12 @@ class Celula
     { return estado_; }
     void set_Estado(int estado)
     { estado_ = estado; }
+    int get_vecinas()
+    { return vecinas_; }
+    void set_vecinas(int vecinas)
+    { vecinas_ = vecinas; }
     void actualizar_estado();
-    void contar_vecinas(/*const Tablero&*/);
+    void contar_vecinas(const Tablero&, int, int);
     //Sobrecargar Operador de flujo
     friend std::ostream& operator<<(std::ostream& os, const Celula *celula);
     std::ostream& print(std::ostream& os);
@@ -32,6 +39,7 @@ class Celula
   private:
     int estado_;    //Muerto(0), Viva(1)
     std::pair<int,int> pos_;
+    int vecinas_;
 };
 }
 
