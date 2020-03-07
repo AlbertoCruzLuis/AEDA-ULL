@@ -26,10 +26,79 @@ m_(m)
   }
 }
 
+AEDA::Tablero::~Tablero()
+{
+  for(int i = 0; i < n_+2; i++)
+  {
+    for(int j = 0; j < m_+2; j++)
+    {
+      delete malla_[i]->data()[j];
+    }
+  }
+}
+
 void AEDA::Tablero::poner_celula_viva(int n, int m)
 {
   //Al tener un vector puntero necesitamos acceder al dato
   malla_[n]->data()[m]->set_Estado(1);
+}
+
+void AEDA::Tablero::rellenar_tablero()
+{
+  std::cout << "Introducir Posicion de la Celula Viva\n";
+  std::cout << "Disponibles Columnas[1-" << n_ << "] Filas[1-" << m_ << "]\n";
+
+  int i,j,mode = 1;
+  while(mode)
+  {
+    std::cout << "POS: ";
+    std::cin >> i >> j;
+    if((i <= 0 || i > n_) || j <= 0 || j > m_)
+    {
+      std::cout << "Posicion Incorrecta\n"
+      << "Volver a Introducir una Posicion Disponible\n";
+    }else
+    {
+      poner_celula_viva(i,j);
+      std::cout << "Pulse 0 para dejar de rellenar el tablero\n"
+      << "Pulse 1 para continuar rellenando el tablero\n";
+      std::cin >> mode;
+    }
+  }
+}
+
+void AEDA::Tablero::random_tablero()
+{
+  //Inicializar a null para que la sucesion de numeros sea aleatoria
+  srand(time(NULL));
+  //Generar la cantidad de celulas a crear
+  int numero_celulas = rand() % (n_ * m_) + 1;
+
+  //Generamos la posicion aleatoria de la celula
+  while(numero_celulas--)
+  {
+    int i = rand() % n_ + 1;
+    int j = rand() % m_ + 1;
+    poner_celula_viva(i,j);
+  }
+}
+
+void AEDA::Tablero::update()
+{
+  //Contar vecinas de cada celula del Tablero
+  for(int i = 1; i < n_+1; i++)
+    for(int j = 1; j < m_+1; j++)
+    {
+      //1) Contar sus vecinas y guardarlas
+      get_malla()[i]->data()[j]->contar_vecinas(*this);
+    }
+  //Actulizar estado de cada celula del Tablero
+  for(int i = 1; i < n_+1; i++)
+    for(int j = 1; j < m_+1; j++)
+    {
+      //2) Actualizar su estado
+      get_malla()[i]->data()[j]->actualizar_estado();
+    }
 }
 
 void AEDA::Tablero::print(std::ostream& os)
@@ -38,11 +107,11 @@ void AEDA::Tablero::print(std::ostream& os)
   {
     for(int j = -1; j <= m_+2; j++)
     {
-      //Arreglar me muestra la Direccion de Memoria
-      //os << &malla_[i][j];
       //Colocar un marco exterior
-      if((i == -1) || (i == n_+2) || (j == -1) || (j == m_+2))
-        os << "|";
+      if((j == -1) || (j == m_+2))
+        os << "║";
+      else if((i == -1) || (i == n_+2))
+        os << "≡";
       else
         malla_[i]->data()[j]->print(os);
     }

@@ -31,7 +31,7 @@ class Celula
     void set_vecinas(int vecinas)
     { vecinas_ = vecinas; }
     void actualizar_estado();
-    void contar_vecinas(const Tablero&, int, int);
+    void contar_vecinas(const Tablero&);
     //Sobrecargar Operador de flujo
     friend std::ostream& operator<<(std::ostream& os, const Celula *celula);
     std::ostream& print(std::ostream& os);

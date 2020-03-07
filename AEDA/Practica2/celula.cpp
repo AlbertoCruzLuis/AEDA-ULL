@@ -36,21 +36,17 @@ std::ostream& AEDA::Celula::print(std::ostream& os)
   return os;
 }
 
-void AEDA::Celula::contar_vecinas(const Tablero& tablero, int Pos_col, int Pos_row)
+void AEDA::Celula::contar_vecinas(const Tablero& tablero)
 {
   vecinas_ = 0;
-  //int Pos_col = tablero.get_malla()[1]->data()[2]->pos_.first;
-  //int Pos_col = 1;
-  //int Pos_row = 1;
-  //int Pos_row = tablero.get_malla()[1]->data()[2]->pos_.second;
+  int Pos_col = pos_.first;
+  int Pos_row = pos_.second;
   //Recorremos sus 8 Vecinas y vemos cuantas hay vivas
   for(int i = Pos_col-1; i <= Pos_col+1; i++)
     for(int j = Pos_row-1; j <= Pos_row+1; j++)
       if(tablero.get_malla()[i]->data()[j]->get_Estado() && ((i != Pos_col) || (j != Pos_row)))
       {
         vecinas_++;
-        //Test Prueba
-        //std::cout << "POS: " << i << "," << j << "N_Vecinas: " << vecinas_ << "\n";
       }
 }
 

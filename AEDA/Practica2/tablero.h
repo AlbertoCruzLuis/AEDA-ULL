@@ -19,10 +19,13 @@ class Tablero
 {
   public:
     Tablero(int, int);
-    ~Tablero(){}
+    ~Tablero();
     std::vector<std::vector<Celula*>*> get_malla() const
     { return malla_; }
     void poner_celula_viva(int, int);
+    void rellenar_tablero();
+    void random_tablero();
+    void update();
     void print(std::ostream& os = std::cout);
 
   private:

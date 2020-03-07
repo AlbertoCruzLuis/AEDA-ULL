@@ -23,43 +23,28 @@ int main()
   //Creamos Nuestro Tablero
   AEDA::Tablero tablero(n,m);
 
-  //Colocar las celulas vivas y actualizar el estado de las celulas
-  tablero.poner_celula_viva(3,1);
-  tablero.poner_celula_viva(1,1);
-  tablero.poner_celula_viva(1,2);
-  tablero.poner_celula_viva(2,1);
-  tablero.poner_celula_viva(2,3);
+  //Elegir la forma de colocar las celulas vivas
+  std::cout << "Pulsa 0 - Para introducir celulas manualmente\n"
+  << "Pulsa 1 - Para introducir celulas aleatoriamente\n";
+  int mode;
+  std::cin >> mode;
+  if(mode)
+    tablero.random_tablero();
+  else
+    tablero.rellenar_tablero();
 
-  //Mostrar la malla del tablero
+  //Mostrar la malla del tablero Inicialmente
   tablero.print();
 
-  //Ejecutar cada turno en un bucle
-  //Cada turno actualizar y mostrar
+  //Ejecutamos cada turno del juego en un bucle
   while(turnos--)
   {
     //Mostrar Turno
     std::cout << "------ Turnos Restantes " << turnos << "------\n";
 
-    //Bucle para Contar vecinas y actulizar estado de cada celula del Tablero
-    for(int i = 1; i < n+1; i++)
-      for(int j = 1; j < m+1; j++)
-      {
-        //1) Contar sus vecinas y guardarlas
-        tablero.get_malla()[i]->data()[j]->contar_vecinas(tablero,i,j);
-        //Comprobaciones
-        /*std::cout << "POS: " << i << "," << j << "N_Vecinas: " << tablero.get_malla()[i]->data()[j]->get_vecinas();
-        if(tablero.get_malla()[i]->data()[j]->get_vecinas() == 3)
-          std::cout << " Viva\n";
-        else
-          std::cout << "\n";*/
-      }
-    for(int i = 1; i < n+1; i++)
-      for(int j = 1; j < m+1; j++)
-      {
-        //2) Actualizar su estado
-        tablero.get_malla()[i]->data()[j]->actualizar_estado();
-      } 
-    //3) Mostrar por Pantalla
+    //Contar Vecinas y Actualizar estado
+    tablero.update(); 
+    //Mostrar por Pantalla
     tablero.print();
   }
   return 0;
