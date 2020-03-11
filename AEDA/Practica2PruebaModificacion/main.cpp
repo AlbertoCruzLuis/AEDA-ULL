@@ -37,15 +37,32 @@ int main()
   tablero.print();
 
   //Ejecutamos cada turno del juego en un bucle
+  int sum_vivas = 0;
+  std::vector<std::pair<int,int>> pos_vivas;
   for(int i = 0; i < turnos; i++)
   {
     //Mostrar Turno
     std::cout << "------ Turno: " << i << "------\n";
 
+    //Almacenar el Patron de Posiciones Vivas
+    pos_vivas = tablero.almacenar_patron();
+
     //Contar Vecinas y Actualizar estado
     tablero.update(); 
     //Mostrar por Pantalla
     tablero.print();
+
+    sum_vivas += tablero.celulas_vivas();
+    //Hallar la celula con el mayor numero de vecinos
+    std::cout << "Numero Maximo de Vecinos: " <<
+      tablero.maximo_vecinos() << "\n";
+    
+    //Comparar el patron de Posiciones vivas
+    if(tablero.comparar_patron(pos_vivas))
+      std::cout << "Patron igual Turno: " << i << "\n";
+    
   }
+  std::cout << "Promedio de Vivas: " << double(sum_vivas) / turnos;
+
   return 0;
 }
