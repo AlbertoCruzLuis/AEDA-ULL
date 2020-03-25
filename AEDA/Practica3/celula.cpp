@@ -85,19 +85,13 @@ int AEDA::Celula::actualizar_estado()
 
   //[Reglas de Supervivencia]/[Reglas de Nacimiento]
   //Celula 1: 23/3
-  if(get_Estado() == 1 && (vecinas_ == 2 || vecinas_ == 3))
-    type = 1;
-  else if(get_Estado() == 0 && vecinas_ == 3)
+  if(get_Estado() == 0 && vecinas_ == 3)
     type = 1; 
   //Celula 2: 245/368
-  if(get_Estado() == 2 && (vecinas_ == 2 || vecinas_ == 4 || vecinas_ == 5))
-    type = 2;
-  else if(get_Estado() == 0 && (vecinas_ == 3 || vecinas_ == 6 || vecinas_ == 8))
+  else if(get_Estado() == 0 && (vecinas_ == 6 || vecinas_ == 8))
     type = 2;
   //Celula 3: 51/346
-  if(get_Estado() == 3 && (vecinas_ == 5 || vecinas_ == 1))
-    type = 3;
-  else if(get_Estado() == 0 && (vecinas_ == 3 || vecinas_ == 4 || vecinas_ == 6))
+  else if(get_Estado() == 0 && (vecinas_ == 4))
     type = 3;
 
   return type;
