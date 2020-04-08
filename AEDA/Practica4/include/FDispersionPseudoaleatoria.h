@@ -2,52 +2,50 @@
 //@Autor: Alberto Cruz Luis
 //@Email: alu0101217734@ull.edu.es
 //@Fecha: Abril 2020
-//@Name: FDispersionModulo.h
+//@Name: FDispersionPseudoaleatoria.h
 //@Version: Práctica 4 - Implementación de búsqueda mediante Tabla Hash
 //==============================================================
 
-#ifndef F_DISPERSION_MODULO
-#define F_DISPERSION_MODULO
+#ifndef F_DISPERSION_PSEUDOALEATORIA_H
+#define F_DISPERSION_PSEUDOALEATORIA_H
 
 #include "FDispersionBase.h"
+#include <cstdlib>
 
 namespace AEDA
 {
 
 template<class Clave>
-class FDispersionModulo : public FDispersionBase<Clave>
+class FDispersionPseudoaleatoria : public FDispersionBase<Clave>
 {
   public:
-    FDispersionModulo(int);
-    ~FDispersionModulo();
+    FDispersionPseudoaleatoria(int);
+    ~FDispersionPseudoaleatoria();
 
     int operator()(const Clave&);
-  
+
   private:
     int nCeldas_;
 };
 
-//Implementacion de los metodos
-
 template<class Clave>
-FDispersionModulo<Clave>::FDispersionModulo(int nCeldas) :
+FDispersionPseudoaleatoria<Clave>::FDispersionPseudoaleatoria(int nCeldas) :
 FDispersionBase<Clave>(),
 nCeldas_(nCeldas)
 {
-
 }
 
 template<class Clave>
-FDispersionModulo<Clave>::~FDispersionModulo()
+FDispersionPseudoaleatoria<Clave>::~FDispersionPseudoaleatoria()
 {
 }
 
 template<class Clave>
-int FDispersionModulo<Clave>::operator()(const Clave& X)
+int FDispersionPseudoaleatoria<Clave>::operator()(const Clave& X)
 {
   //Hallar la posicion de la celda en la que deberia alojarse
-  //std::cout << "X: " << X << "\nnClaves: " << nCeldas_ << "\n";
-  return X % nCeldas_;
+  srand(X);
+  return rand() % nCeldas_;
 }
 
 }

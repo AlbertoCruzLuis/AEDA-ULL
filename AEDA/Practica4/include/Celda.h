@@ -62,6 +62,8 @@ bool Celda<Clave>::Insertar(Clave X)
     claves_.push_back(new Clave(X));
     return true;
   }
+  //Si esta llena hay que utilizar un metodo de FExploracion 
+  //para insertar la clave
   return false;
 }
 
@@ -80,7 +82,7 @@ void Celda<Clave>::Mostrar()
   //Mostar los datos de la celda
   for(int i = 0; i < claves_.size(); i++)
   {
-    std::cout << claves_[i];
+    std::cout << *claves_[i] << " | ";
   }
   std::cout << "\n";
 }

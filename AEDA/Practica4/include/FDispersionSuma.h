@@ -2,12 +2,12 @@
 //@Autor: Alberto Cruz Luis
 //@Email: alu0101217734@ull.edu.es
 //@Fecha: Abril 2020
-//@Name: FDispersionModulo.h
+//@Name: FDispersionSuma.h
 //@Version: Práctica 4 - Implementación de búsqueda mediante Tabla Hash
 //==============================================================
 
-#ifndef F_DISPERSION_MODULO
-#define F_DISPERSION_MODULO
+#ifndef F_DISPERSION_SUMA
+#define F_DISPERSION_SUMA
 
 #include "FDispersionBase.h"
 
@@ -15,39 +15,44 @@ namespace AEDA
 {
 
 template<class Clave>
-class FDispersionModulo : public FDispersionBase<Clave>
+class FDispersionSuma : public FDispersionBase<Clave>
 {
   public:
-    FDispersionModulo(int);
-    ~FDispersionModulo();
+    FDispersionSuma(int);
+    ~FDispersionSuma();
 
     int operator()(const Clave&);
-  
+
   private:
     int nCeldas_;
 };
 
-//Implementacion de los metodos
 
 template<class Clave>
-FDispersionModulo<Clave>::FDispersionModulo(int nCeldas) :
+FDispersionSuma<Clave>::FDispersionSuma(int nCeldas) :
 FDispersionBase<Clave>(),
 nCeldas_(nCeldas)
 {
-
 }
 
 template<class Clave>
-FDispersionModulo<Clave>::~FDispersionModulo()
+FDispersionSuma<Clave>::~FDispersionSuma()
 {
 }
 
 template<class Clave>
-int FDispersionModulo<Clave>::operator()(const Clave& X)
+int FDispersionSuma<Clave>::operator()(const Clave& X)
 {
   //Hallar la posicion de la celda en la que deberia alojarse
-  //std::cout << "X: " << X << "\nnClaves: " << nCeldas_ << "\n";
-  return X % nCeldas_;
+  int d = 0;
+  int x = X;
+  while(x > 0)
+  {
+    int y = x % 10;
+    d += y;
+    x /= 10;
+  }
+  return d % nCeldas_;
 }
 
 }
