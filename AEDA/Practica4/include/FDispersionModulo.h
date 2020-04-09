@@ -21,7 +21,7 @@ class FDispersionModulo : public FDispersionBase<Clave>
     FDispersionModulo(int);
     ~FDispersionModulo();
 
-    int operator()(const Clave&);
+    int operator()(Clave&);
   
   private:
     int nCeldas_;
@@ -43,7 +43,7 @@ FDispersionModulo<Clave>::~FDispersionModulo()
 }
 
 template<class Clave>
-int FDispersionModulo<Clave>::operator()(const Clave& X)
+int FDispersionModulo<Clave>::operator()(Clave& X)
 {
   //Hallar la posicion de la celda en la que deberia alojarse
   //std::cout << "X: " << X << "\nnClaves: " << nCeldas_ << "\n";

@@ -19,7 +19,7 @@ class FExploracionBase
     FExploracionBase(/* args */);
     ~FExploracionBase();
 
-    virtual int operator()(const Clave&, int i)=0;
+    virtual int operator()(Clave&, int i)=0;
 
   private:
 };

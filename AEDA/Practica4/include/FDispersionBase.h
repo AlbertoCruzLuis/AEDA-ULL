@@ -21,7 +21,7 @@ class FDispersionBase
     FDispersionBase(/* args */);
     ~FDispersionBase();
 
-    virtual int operator()(const Clave&)=0;
+    virtual int operator()(Clave&)=0;
 
   private:
 

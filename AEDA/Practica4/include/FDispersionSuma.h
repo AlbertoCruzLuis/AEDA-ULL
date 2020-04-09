@@ -21,7 +21,7 @@ class FDispersionSuma : public FDispersionBase<Clave>
     FDispersionSuma(int);
     ~FDispersionSuma();
 
-    int operator()(const Clave&);
+    int operator()(Clave&);
 
   private:
     int nCeldas_;
@@ -41,7 +41,7 @@ FDispersionSuma<Clave>::~FDispersionSuma()
 }
 
 template<class Clave>
-int FDispersionSuma<Clave>::operator()(const Clave& X)
+int FDispersionSuma<Clave>::operator()(Clave& X)
 {
   //Hallar la posicion de la celda en la que deberia alojarse
   int d = 0;

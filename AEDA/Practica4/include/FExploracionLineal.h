@@ -21,7 +21,7 @@ class FExploracionLineal : public FExploracionBase<Clave>
     FExploracionLineal();
     ~FExploracionLineal();
 
-    int operator()(const Clave&, int i);
+    int operator()(Clave&, int i);
 
   private:
 };
@@ -38,7 +38,7 @@ FExploracionLineal<Clave>::~FExploracionLineal()
 }
 
 template<class Clave>
-int FExploracionLineal<Clave>::operator()(const Clave& X, int i)
+int FExploracionLineal<Clave>::operator()(Clave& X, int i)
 {
   //Hallar la posicion libre para almacenar la clave
   return ++i;

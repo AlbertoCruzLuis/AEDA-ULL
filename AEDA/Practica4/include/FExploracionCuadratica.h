@@ -21,7 +21,7 @@ class FExploracionCuadratica : public FExploracionBase<Clave>
     FExploracionCuadratica();
     ~FExploracionCuadratica();
 
-    int operator()(const Clave&, int i);
+    int operator()(Clave&, int i);
 
   private:
 };
@@ -38,7 +38,7 @@ FExploracionCuadratica<Clave>::~FExploracionCuadratica()
 }
 
 template<class Clave>
-int FExploracionCuadratica<Clave>::operator()(const Clave& X, int i)
+int FExploracionCuadratica<Clave>::operator()(Clave& X, int i)
 {
   //Hallar la posicion libre para almacenar la clave
   return i*i;

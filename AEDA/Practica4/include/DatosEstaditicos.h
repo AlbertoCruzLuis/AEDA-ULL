@@ -9,6 +9,12 @@
 #ifndef DATOS_ESTADISTICOS_H
 #define DATOS_ESTADISTICOS_H
 
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>      // std::accumulate
+#include <limits.h>       //std::INT_MAX
+
 namespace AEDA
 {
 
@@ -17,14 +23,15 @@ class DatosEstaditicos
   public:
     DatosEstaditicos();
     ~DatosEstaditicos();
-    int get_nComparaciones();
-    int get_maxComparaciones();
-    void Incremento();
-    void max();
+    std::vector<int>& get_vComparaciones();
+    int total();
+    int max();
+    int min();
+    double media();
+    void mostrar();
 
   private:
-    int nComparaciones_;
-    int maxComparaciones_;
+    std::vector<int> vComparaciones_;
 };
 
 }

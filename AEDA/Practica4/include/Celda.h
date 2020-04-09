@@ -50,7 +50,13 @@ Celda<Clave>::~Celda()
 template<class Clave>
 bool Celda<Clave>::Buscar(Clave X)
 {
-
+  //Buscar la clave en la celda
+  for(int i = 0; i < claves_.size(); i++)
+  {
+    if(*claves_[i] == X)
+      return true;
+  }
+  return false;
 }
 
 template<class Clave>

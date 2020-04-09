@@ -13,6 +13,7 @@
 #include <ctime>        //time
 #include <vector>
 #include <iostream>
+#include <math.h>
 
 namespace AEDA
 {
@@ -20,6 +21,7 @@ class Dni
 {
   public:
     Dni();
+    Dni(int);
     operator unsigned long();
 
   private:

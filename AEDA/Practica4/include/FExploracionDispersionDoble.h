@@ -23,7 +23,7 @@ class FExploracionDispersionDoble : public FExploracionBase<Clave>
     FExploracionDispersionDoble(int);
     ~FExploracionDispersionDoble();
 
-    int operator()(const Clave&, int i);
+    int operator()(Clave&, int i);
 
   private:
     FDispersionBase<Clave>* f_dispersion2_;   //Segunda Funcion Dispersion
@@ -45,7 +45,7 @@ FExploracionDispersionDoble<Clave>::~FExploracionDispersionDoble()
 }
 
 template<class Clave>
-int FExploracionDispersionDoble<Clave>::operator()(const Clave& X, int i)
+int FExploracionDispersionDoble<Clave>::operator()(Clave& X, int i)
 {
   //Hallar la posicion libre para almacenar la clave
   return i * (*f_dispersion2_)(X);

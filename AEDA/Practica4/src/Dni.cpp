@@ -17,13 +17,37 @@ Dni::Dni()
   //Generar Semilla
   srand(time(NULL));
 
-  //Generar cada digito [0...9] 
-  for(int i = 0; i < 10; i++)
+  //Generar 8 digitos [0...9] 
+  for(int i = 0; i < 8; i++)
   {
     id_.push_back(rand() % 10);
-    std::cout << id_[i];
   }
-  std::cout << "\n";
+}
+
+Dni::Dni(int semilla)
+{
+  //Generar Numero id aleatoriamente
+  //Generar Semilla
+  srand(semilla);
+
+  //Generar 8 digitos [0...9] 
+  for(int i = 0; i < 8; i++)
+  {
+    id_.push_back(rand() % 10);
+  }
+}
+
+Dni::operator unsigned long()
+{
+  unsigned long valor_dni = 0;
+  //Recorremos todos los digitos
+  for(int i = 0; i < id_.size(); i++)
+  {
+    //Convertir el numero mediante su valor de unidad
+    //Es decir: Unidades:1, Decenas:10 Centenas:100
+    valor_dni += id_[i] * std::pow(10,id_.size()-1-i);
+  }
+  return valor_dni;
 }
  
 }
