@@ -21,7 +21,7 @@
 #include "FExploracionLineal.h"
 #include "FExploracionCuadratica.h"
 #include "FExploracionDispersionDoble.h"
-#include "DatosEstaditicos.h"
+#include "FExploracionRehashing.h"
 
 namespace AEDA
 {
@@ -34,15 +34,13 @@ class Tabla
 
     bool Buscar(Clave& X);
     bool Insertar(Clave& X);
-    DatosEstaditicos& get_estadisticas();
     void Mostrar();
   
   private:
-    std::vector<Celda<Clave>*> vCelda_;       //Vector de Celdas    
+    std::vector<Celda<Clave>*> vCelda_;      //Vector de Celdas    
     int nCeldas_;                             //Numero de Celdas
     FDispersionBase<Clave>* f_dispersion_;    //Funcion Dispersion
     FExploracionBase<Clave>* f_exploracion_;  //Funcion Exploracion
-    DatosEstaditicos estadisticas_;           //Numero de Comparaciones
 };
 
 //Implementacion de los metodos
@@ -74,12 +72,20 @@ nCeldas_(nCeldas)
     case 1: f_exploracion_ = new FExploracionCuadratica<Clave>();
       break;
     case 2: f_exploracion_ = new FExploracionDispersionDoble<Clave>(nCeldas);
+      break;
+    case 3: f_exploracion_ = new FExploracionRehashing<Clave>(nCeldas);
+      break;
   }
 }
 
 template<class Clave>
 Tabla<Clave>::~Tabla()
 {
+  //Liberamos la memoria
+  for(int i = 0; i < vCelda_.size(); i++)
+  {
+    delete vCelda_[i];
+  }
 }
 
 
@@ -91,18 +97,22 @@ bool Tabla<Clave>::Buscar(Clave& X)
   int pos = (*f_dispersion_)(X);
   if(vCelda_[pos]->Buscar(X))
   {
-    std::cout << "La Clave: " << X << " Ha sido encontrada\n";
+    //std::cout << "Clave: " << X << " Ha sido encontrada\n";
     return true;
   }
   //2)Buscar en posiciones respecto a la funcion de exploracion
   int i = 0;
-  pos = ((*f_dispersion_)(X) + (*f_exploracion_)(X,++i)) % nCeldas_;
+  pos = ((*f_dispersion_)(X) + (*f_exploracion_)(X,i)) % nCeldas_;
+  i++;
   while(!vCelda_[pos]->Buscar(X))
   {
-    pos = ((*f_dispersion_)(X) + (*f_exploracion_)(X,++i)) % nCeldas_;
+    pos = ((*f_dispersion_)(X) + (*f_exploracion_)(X,i)) % nCeldas_;
+    i++;
+    //std::cout << "POS: " << pos << "\n";
+    //std::cout << "ITER Exploracion: " << i << "\n";
   }
-  std::cout << "La Clave: " << X << " Ha sido encontrada en otra posicion\n";
-  return false;
+  //std::cout << "Clave: " << X << " - Iter: " << i << "\n";
+  return true;
 }
 
 template<class Clave>
@@ -120,19 +130,8 @@ bool Tabla<Clave>::Insertar(Clave& X)
     pos = ((*f_dispersion_)(X) + (*f_exploracion_)(X,i++)) % nCeldas_;
     std::cout << "ITER Exploracion: " << i << "\n";
   }
-  //Obtener el numero de comparaciones distinto de 0
-  if(i > 0)
-  {
-    estadisticas_.get_vComparaciones().push_back(i);
-  }
 
   return true;
-}
-
-template<class Clave>
-DatosEstaditicos& Tabla<Clave>::get_estadisticas()
-{
-  return estadisticas_;
 }
 
 template<class Clave>
@@ -155,8 +154,6 @@ void Tabla<Clave>::Mostrar()
   {
     std::cout << "Tamaño demasiado grande para mostrar la Tabla Hash\n";
   }
-  //Mostrar los datos relacionados al numero de comparaciones
-  estadisticas_.mostrar();
 }
 
 }

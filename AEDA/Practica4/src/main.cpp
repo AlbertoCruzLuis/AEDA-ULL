@@ -12,6 +12,8 @@
 #include <vector>
 #include <map>
 #include "../include/Celda.h"
+#include "../include/Contador.h"
+#include "../include/DatosEstaditicos.h"
 
 int main()
 {
@@ -49,11 +51,12 @@ int main()
   std::map<int,std::string> Exploracion = {
     {0,"Lineal"},
     {1,"Cuadratica"},
-    {2,"Dispersion Doble"}
+    {2,"Dispersion Doble"},
+    {3,"Rehashing"}
   };
   int tipoFExploracion;   //Tipo de Funcion de Exploracion
   std::cout << "Elegir una Funcion de Exploracion\n";
-  std::cout << "Lineal: 0\tCuadratica: 1\tDispersion Doble: 2\n";
+  std::cout << "Lineal: 0\tCuadratica: 1\tDispersion Doble: 2\tRehashing: 3\n";
   std::cout << "Tipo: ";
   std::cin >> tipoFExploracion;
   //Comprobar si la clave se encuentra en el mapa
@@ -91,11 +94,11 @@ int main()
   //std::vector<AEDA::Dni> banco_pruebas(N);
   std::vector<AEDA::Dni> banco_pruebas(2*N);
   //Instanciamos de forma aleatoria los datos del banco de pruebas
-  srand(time(NULL));
+  srand(0);
   for(int i = 0; i < banco_pruebas.size(); i++)
   {
     banco_pruebas[i] = AEDA::Dni(rand());
-    std::cout << banco_pruebas[i] << "\n";
+    //std::cout << banco_pruebas[i] << "\n";
   }
 
   //Crear Tabla Hash e insertar los N valores obtenidos del Banco de Pruebas
@@ -112,19 +115,45 @@ int main()
   //Factores de carga: 0.3 0.5 0.7 0.8 0.9 
 
   //1) Experimento Operacion Busqueda
-  //Buscar las nPruebas aleatoreamente en la tabla hash
-  for(int i = 0; i < N; i++)
+  //Creamos el contador puesto a 0
+  AEDA::Contador contador;
+  //Realizar nPruebas iteraciones y buscar aleatoreamente en la tabla hash
+  for(int i = 0; i < nPruebas; i++)
   {
-    std::cout << "Busqueda\n";
-    tabla.Buscar(banco_pruebas[i]);
+    std::cout << "Experimento Busqueda\n";
+    if(tabla.Buscar(banco_pruebas[rand() % N]))
+    {
+      contador.inc_vector();
+      AEDA::Contador::nComparaciones = 0;
+    }
   }
+  //Mostar los valores del vector para comprobaciones
+  // for(auto i : AEDA::Contador::v_comparacion)
+  //   std::cout << "IterClave: " << i << "\n";
+
+  //Hallamos los datos de min ,max ,media a partir de los datos recogidos
+  //Para el experimento de Busqueda
+  AEDA::DatosEstaditicos datos_busqueda(contador.v_comparacion);
+  //Reiniciamos el contador
+  contador.reset();
 
   //2) Experimento Operacion Insercion
-  //Insertar las nPruebas aleatorimente de las utimas N claves
-  /*for(int i = N; i < banco_pruebas.size(); i++)
+  //Buscar las nPruebas aleatorimente de las utimas N claves no insertadas
+  for(int i = 0; i < nPruebas; i++)
   {
-    tabla.Insertar(banco_pruebas[i]);
-  }*/
+    std::cout << "Experimento Insercion\n";
+    if(tabla.Buscar(banco_pruebas[rand() %
+      (banco_pruebas.size()-N) + N]))
+      {
+        contador.inc_vector();
+        AEDA::Contador::nComparaciones = 0;
+      }
+  }
+  //Hallamos los datos de min ,max ,media a partir de los datos recogidos
+  //Para el experimento de Busqueda
+  AEDA::DatosEstaditicos datos_insercion(contador.v_comparacion);
+  //Reiniciamos el contador
+  contador.reset();
 
   //Mostramos la Tabla Hash
   tabla.Mostrar();
@@ -149,14 +178,19 @@ int main()
   std::cout << "Busquedas";
 
   //Resultados Busquedas
+  std::cout << "\t" << datos_busqueda.min() << "\t\t" <<
+  datos_busqueda.media() << "\t\t" <<
+  datos_busqueda.max() << "\t\t" <<
+  datos_busqueda.total() << "\n";
 
   //Texto
-  std::cout << "\nInsercion";
+  std::cout << "Insercion";
   
   //Resultados Insercion
-  std::cout << "\t" << tabla.get_estadisticas().min() << "\t\t" <<
-  tabla.get_estadisticas().media() << "\t\t" <<
-  tabla.get_estadisticas().max() << "\t\t" <<
-  tabla.get_estadisticas().total() << "\n";
-
+  std::cout << "\t" << datos_insercion.min() << "\t\t" <<
+  datos_insercion.media() << "\t\t" <<
+  datos_insercion.max() << "\t\t" <<
+  datos_insercion.total() << "\n";
+  
+  return 0;
 }

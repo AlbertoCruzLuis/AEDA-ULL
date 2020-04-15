@@ -9,6 +9,7 @@
 #ifndef F_EXPLORACION_LINEAL
 #define F_EXPLORACION_LINEAL
 
+#include <iostream>
 #include "FExploracionBase.h"
 
 namespace AEDA

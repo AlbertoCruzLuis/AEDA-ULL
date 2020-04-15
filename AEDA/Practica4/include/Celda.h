@@ -21,8 +21,8 @@ class Celda
     Celda(int);
     ~Celda();
 
-    bool Buscar(Clave X);
-    bool Insertar(Clave X);
+    bool Buscar(Clave& X);
+    bool Insertar(Clave& X);
     bool estaLlena();
     void Mostrar();
 
@@ -37,30 +37,38 @@ template<class Clave>
 Celda<Clave>::Celda(int nClaves) :
 nClaves_(nClaves)
 {
-  //Reservo el tamaño de la celda
-  //claves_.resize(nClaves);
-
 }
 
 template<class Clave>
 Celda<Clave>::~Celda()
 {
+  //Liberamos la memoria
+  for (int i = 0; i < claves_.size(); i++)
+  {
+    delete claves_[i];
+  }
 }
 
 template<class Clave>
-bool Celda<Clave>::Buscar(Clave X)
+bool Celda<Clave>::Buscar(Clave& X)
 {
   //Buscar la clave en la celda
+  //std::cout << "TamVector: " << claves_.size() << "\n";
   for(int i = 0; i < claves_.size(); i++)
   {
+    //std::cout << "Clave_a_Comparar: " << *claves_[i] << "\n";
     if(*claves_[i] == X)
       return true;
   }
+  //Si no esta llena entonces deberia insertarse la clave en esta celda
+  //Por lo tanto retornamos el numero de comparaciones necesarias
+  if(!estaLlena())
+    return true;
   return false;
 }
 
 template<class Clave>
-bool Celda<Clave>::Insertar(Clave X)
+bool Celda<Clave>::Insertar(Clave& X)
 {
   //Añadir una clave a la celda
   if(!estaLlena())

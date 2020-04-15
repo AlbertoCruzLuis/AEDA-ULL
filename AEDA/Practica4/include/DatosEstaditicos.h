@@ -21,7 +21,7 @@ namespace AEDA
 class DatosEstaditicos
 {
   public:
-    DatosEstaditicos();
+    DatosEstaditicos(std::vector<int>&);
     ~DatosEstaditicos();
     std::vector<int>& get_vComparaciones();
     int total();

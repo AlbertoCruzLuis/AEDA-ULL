@@ -11,7 +11,7 @@
 
 #include "FExploracionBase.h"
 #include "FDispersionBase.h"
-#include "FDispersionModulo.h"
+#include "FDispersionPrima.h"
 
 namespace AEDA
 {
@@ -36,7 +36,7 @@ FExploracionBase<Clave>(),
 nCeldas_(nCeldas)
 {
   //Crear la Segunda FDispersion
-  f_dispersion2_ = new FDispersionModulo<Clave>(nCeldas);
+  f_dispersion2_ = new FDispersionPrima<Clave>(nCeldas);
 }
 
 template<class Clave>

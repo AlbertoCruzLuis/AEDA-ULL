@@ -11,8 +11,14 @@
 namespace AEDA
 {
 
-DatosEstaditicos::DatosEstaditicos()
+DatosEstaditicos::DatosEstaditicos(std::vector<int>& datos_comparaciones)
 {
+  //Recogemos los datos del contador
+  for (int i = 0; i < datos_comparaciones.size(); i++)
+  {
+    //Copiamos la informacion de un vector a otro
+    vComparaciones_.push_back(datos_comparaciones[i]);
+  }
 }
 
 DatosEstaditicos::~DatosEstaditicos()
@@ -55,10 +61,11 @@ double DatosEstaditicos::media()
   {
     //Hallar la suma de todos los elementos del vector
     //Dividirlos entre el numero de elementos para obtener la media
-    media = std::accumulate(
+    //NOTA: Pasar uno de los dos numeros a double
+    media = double(std::accumulate(
       vComparaciones_.begin(),
       vComparaciones_.end(),
-      0) / vComparaciones_.size();
+      0)) / vComparaciones_.size();
   }
   return media;
 }
@@ -66,7 +73,12 @@ double DatosEstaditicos::media()
 //Total de Comparaciones
 int DatosEstaditicos::total()
 {
-  return vComparaciones_.size();
+  //Suma acumulativa de todo los elementos del vector
+  return std::accumulate(
+    vComparaciones_.begin(),
+    vComparaciones_.end(),
+    0
+  );
 }
 
 //Vector de Comparaciones

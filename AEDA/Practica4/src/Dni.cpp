@@ -34,6 +34,16 @@ Dni::Dni(int semilla)
   for(int i = 0; i < 8; i++)
   {
     id_.push_back(rand() % 10);
+    //std::cout << id_[i];
+  }
+  //std::cout << "\n";
+}
+
+Dni::Dni(Dni& dni)
+{
+  for(int i = 0; i < dni.id_.size(); i++)
+  {
+    id_.push_back(dni.id_[i]);
   }
 }
 
@@ -41,6 +51,7 @@ Dni::operator unsigned long()
 {
   unsigned long valor_dni = 0;
   //Recorremos todos los digitos
+  //std::cout << "TAM: " << id_.size() << "\n";
   for(int i = 0; i < id_.size(); i++)
   {
     //Convertir el numero mediante su valor de unidad
@@ -48,6 +59,26 @@ Dni::operator unsigned long()
     valor_dni += id_[i] * std::pow(10,id_.size()-1-i);
   }
   return valor_dni;
+}
+
+bool Dni::operator==(Dni& dni)
+{
+  //Contar las comparaciones
+  contador.incremento();
+  std::cout << "Clave: " << dni << "\n";
+  //Comprobamos que tenga el mismo tamaño
+  if(id_.size() != dni.id_.size())
+    return false;
+  //Recorremos todos los digitos
+  for (int i = 0; i < id_.size(); i++)
+  {
+    //Comparamos cada digito
+    if(id_[i] != dni.id_[i])
+      return false;
+  }
+  //contador.inc_vector();
+  //Contador::nComparaciones = 0;
+  return true;
 }
  
 }

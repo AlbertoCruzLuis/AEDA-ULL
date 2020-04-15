@@ -14,6 +14,7 @@
 #include <vector>
 #include <iostream>
 #include <math.h>
+#include "Contador.h"
 
 namespace AEDA
 {
@@ -22,11 +23,14 @@ class Dni
   public:
     Dni();
     Dni(int);
+    Dni(Dni&);   //Constructor de copia
     operator unsigned long();
+    bool operator==(Dni&);
 
   private:
     //Identificador de 8 digitos [00000000...99999999]
-    std::vector<int> id_;  
+    std::vector<int> id_;
+    Contador contador;
 };
 }
 
