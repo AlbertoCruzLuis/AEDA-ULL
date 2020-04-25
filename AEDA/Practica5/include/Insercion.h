@@ -9,6 +9,8 @@
 #ifndef INSERCION_H
 #define INSERCION_H
 
+extern int mode;
+
 namespace AEDA
 {
   namespace Insercion
@@ -49,8 +51,11 @@ namespace AEDA
       {
         aux = sec[i];
         //Pulsar Enter para reanudar la ejecucion del programa
-        getchar();
-        print(sec, i, -2);
+        if(mode == 1)
+        {
+          getchar();
+          print(sec, i, -2);
+        }
         j = i-1;
         while (j >= 0 && sec[j] > aux)
         {
@@ -58,7 +63,10 @@ namespace AEDA
           j--;
         }
         sec[j+1] = aux;
-        print(sec, -2, j+1);
+        if(mode == 1)
+        {
+          print(sec, -2, j+1);
+        }
       }
     }
   }

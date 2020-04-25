@@ -16,6 +16,7 @@
 #include "../../include/BubbleSort.h"
 #include "../../include/HeapSort.h"
 #include "../../include/QuickSort.h"
+#include "../../include/Dni.h"
 
 void demostracion()
 {
@@ -52,11 +53,14 @@ void demostracion()
   }
 
   // 2)Generar aleatoriamente una secuencia de tamaño N ​de objetos DNI​
+  //Definir la clave
+  typedef AEDA::Dni clave;
   srand(time(NULL));
-  std::vector<int> secuencia(n);
+  std::vector<clave> secuencia(n);
   for(int i = 0; i < secuencia.size(); i++)
   {
-    secuencia[i] = rand() % 10;
+    secuencia[i] = clave(rand());
+    //secuencia[i] = rand() % 100;
   }
 
   //Mostrar Vector Original
@@ -73,13 +77,13 @@ void demostracion()
   m_algorithm[type_algorithm] << "\n";
   switch (type_algorithm)
   {
-    case 1: AEDA::Insercion::Insercion<int>(secuencia, n);
+    case 1: AEDA::Insercion::Insercion<clave>(secuencia, n);
       break;
-    case 2: AEDA::BubbleSort::BubbleSort<int>(secuencia, n);
+    case 2: AEDA::BubbleSort::BubbleSort<clave>(secuencia, n);
       break;
-    case 3: AEDA::HeapSort::HeapSort<int>(secuencia, n);
+    case 3: AEDA::HeapSort::HeapSort<clave>(secuencia, n);
       break;
-    case 4: AEDA::QuickSort::QuickSort<int>(secuencia,0,n);
+    case 4: AEDA::QuickSort::QuickSort<clave>(secuencia,0,n-1);
       break;
   }
   //Mostrar Secuencia Ordenada

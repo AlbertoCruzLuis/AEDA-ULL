@@ -9,6 +9,8 @@
 #ifndef BUBBLE_SORT_H
 #define BUBBLE_SORT_H
 
+extern int mode;
+
 namespace AEDA
 {
   namespace BubbleSort
@@ -51,8 +53,11 @@ namespace AEDA
         for(int j = n-1; j >= i; j--)
         {
           //Pulsar Enter para reanudar la ejecucion del programa
-          getchar();
-          print(sec,j-1,j);
+          if(mode == 1)
+          {
+            getchar();
+            print(sec,j-1,j);
+          }
           if(sec[j] < sec[j-1])
           {
             swap(sec[j-1],sec[j]);

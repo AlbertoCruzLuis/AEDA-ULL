@@ -9,6 +9,8 @@
 #ifndef QUICK_SORT_H
 #define QUICK_SORT_H
 
+extern int mode;
+
 namespace AEDA
 {
   namespace QuickSort
@@ -40,8 +42,11 @@ namespace AEDA
       int f = pos_fin;
       Clave p = sec[(i+f)/2];
       //Pulsar Enter para reanudar la ejecucion del programa
-      getchar();
-      print(sec);
+      if(mode == 1)
+      {
+        getchar();
+        print(sec);
+      }
       while (i <= f)
       {
         while(sec[i] < p) i++;

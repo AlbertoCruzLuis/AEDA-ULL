@@ -9,12 +9,13 @@
 #include "Demostracion/demostracion.cpp"
 #include "Estadistica/estadistica.cpp"
 
+int mode;
+
 int main()
 {
   std::cout << "-------------------------------------\n";
   std::cout << "| Practica 5: Metodos de Ordenacion |\n";
   std::cout << "-------------------------------------\n";
-  int mode;
   std::cout << "Modo: 1.Demostracion\t2.Estadisticas\n";
   std::cout << "Modo: ";
   std::cin >> mode;

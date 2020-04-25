@@ -9,6 +9,8 @@
 #ifndef HEAP_SORT_H
 #define HEAP_SORT_H
 
+extern int mode;
+
 namespace AEDA
 {
   namespace HeapSort
@@ -23,11 +25,11 @@ namespace AEDA
     }
 
     template<class Clave>
-    void print(std::vector<Clave>& sec, int pos_l, int pos_r, int tam)
+    void print(std::vector<Clave>& sec, int n, int pos_l, int pos_r, int tam)
     {
       //Codigo de Colores
       //Rojo: 31 - Verde: 32 - Azul: 34
-      for(int i = 0; i < sec.size(); i++)
+      for(int i = 0; i < n; i++)
       {
         if(i == tam)
           std::cout << "\e[34m" << sec[i] << " ";
@@ -45,27 +47,30 @@ namespace AEDA
     template<class Clave>
     void baja(int i, std::vector<Clave>& sec, int n)
     {
-      while ( 2*i <= n )
+      int l = 2*i + 1;
+      int r = l + 1;
+      int tam = i;
+      //Pulsar Enter para reanudar la ejecucion del programa
+      if(mode == 1)
       {
-        int l = 2*i;
-        int r = l + 1;
-        int tam;
-        //Pulsar Enter para reanudar la ejecucion del programa
         getchar();
-        print(sec,l,r,tam);
-        if(l == n)
-          tam = l;
-        else if(sec[l] > sec[r])
-          tam = l;
-        else 
-          tam = r;
-        if(sec[tam] <= sec[i])
-          break;
-        else 
-        {
-          swap(sec[i],sec[tam]);
-          i = tam;
-        }
+        print(sec, n, l,r,tam);
+      }
+      if((l < n) && (sec[l] > sec[tam]))
+      {
+        //std::cout << "Baja\n";
+        tam = l;
+      }
+      if((r < n) && (sec[r] > sec[tam]))
+      {
+        //std::cout << "Sube\n";
+        tam = r;
+      }
+      if(tam != i) 
+      {
+        //std::cout << "Colocado\n";
+        swap(sec[i],sec[tam]);
+        baja(tam,sec,n);
       }
     }
 
@@ -73,14 +78,14 @@ namespace AEDA
     void HeapSort(std::vector<Clave>& sec, int n)
     {
       //Algoritmo HeapSort
-      for(int i = n/2; i > 0; i--)
+      for(int i = (n/2)-1; i >= 0; i--)
       {
         baja(i, sec, n);
       }
-      for(int i = n; i > 1; i--)
+      for(int i = n-1; i >= 0; i--)
       {
-        swap(sec[1],sec[i]);
-        baja(1,sec,i-1);
+        swap(sec[0],sec[i]);
+        baja(0,sec,i);
       }
     }
   }
