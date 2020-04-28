@@ -23,7 +23,6 @@ class Dni
   public:
     Dni();
     Dni(int);
-    Dni(Dni&);   //Constructor de copia
     operator unsigned long();
     bool operator==(Dni&);
     bool operator<(Dni&);

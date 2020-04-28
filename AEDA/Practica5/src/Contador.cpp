@@ -19,7 +19,7 @@ Contador::~Contador()
 {
 }
 
-int Contador::nComparaciones = 0;
+int Contador::nComparaciones;
 
 void Contador::incremento()
 {

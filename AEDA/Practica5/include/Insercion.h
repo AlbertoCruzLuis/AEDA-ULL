@@ -42,7 +42,7 @@ namespace AEDA
     }
 
     template<class Clave>
-    void Insercion(std::vector<Clave>& sec, int n)
+    std::vector<Clave> Insercion(std::vector<Clave> sec, int n)
     {
       //Algoritmo de Insercion
       int i,j;
@@ -68,6 +68,8 @@ namespace AEDA
           print(sec, -2, j+1);
         }
       }
+      //Retornamos la secuencia ordenada
+      return sec;
     }
   }
 }

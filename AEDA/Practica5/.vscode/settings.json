@@ -43,6 +43,9 @@
     "ctime": "cpp",
     "functional": "cpp",
     "iterator": "cpp",
-    "numeric": "cpp"
+    "numeric": "cpp",
+    "chrono": "cpp",
+    "ratio": "cpp",
+    "iomanip": "cpp"
   }
 }

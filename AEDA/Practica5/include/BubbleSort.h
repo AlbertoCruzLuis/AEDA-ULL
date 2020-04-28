@@ -45,7 +45,7 @@ namespace AEDA
     }
 
     template<class Clave>
-    void BubbleSort(std::vector<Clave>& sec, int n)
+    std::vector<Clave> BubbleSort(std::vector<Clave> sec, int n)
     {
       //Algoritmo de BubbleSort
       for(int i = 1; i < n; i++)
@@ -65,6 +65,8 @@ namespace AEDA
           }
         }
       }
+      //Retornamos la secuencia ordenada
+      return sec;
     }
   }
 }

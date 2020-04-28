@@ -75,7 +75,7 @@ namespace AEDA
     }
 
     template<class Clave>
-    void HeapSort(std::vector<Clave>& sec, int n)
+    std::vector<Clave> HeapSort(std::vector<Clave> sec, int n)
     {
       //Algoritmo HeapSort
       for(int i = (n/2)-1; i >= 0; i--)
@@ -87,6 +87,8 @@ namespace AEDA
         swap(sec[0],sec[i]);
         baja(0,sec,i);
       }
+      //Retornamos la secuencia ordenada
+      return sec;
     }
   }
 }

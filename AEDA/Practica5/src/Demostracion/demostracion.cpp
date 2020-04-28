@@ -15,6 +15,7 @@
 #include "../../include/Insercion.h"
 #include "../../include/BubbleSort.h"
 #include "../../include/HeapSort.h"
+#include "../../include/ShellSort.h"
 #include "../../include/QuickSort.h"
 #include "../../include/Dni.h"
 
@@ -37,10 +38,11 @@ void demostracion()
     {1,"Insercion"},
     {2,"BubbleSort"},
     {3,"HeapSort"},
-    {4,"QuickSort"}
+    {4,"QuickSort"},
+    {5,"ShellSort"}
   };
   int type_algorithm;
-  std::cout << "1.Insercion\t2.BubbleSort\t3.HeapSort\t4.QuickSort\n";
+  std::cout << "1.Insercion\t2.BubbleSort\t3.HeapSort\t4.QuickSort\t5.ShellSort\n";
   std::cout << "Tipo de Algoritmo: ";
   std::cin >> type_algorithm;
   //Comprobar si la clave se encuentra en el mapa
@@ -60,7 +62,6 @@ void demostracion()
   for(int i = 0; i < secuencia.size(); i++)
   {
     secuencia[i] = clave(rand());
-    //secuencia[i] = rand() % 100;
   }
 
   //Mostrar Vector Original
@@ -75,20 +76,33 @@ void demostracion()
   std::cout << "----| Pulsar -> Enter en cada Paso-----\n";
   std::cout << "Ejecucion del Algoritmo " << 
   m_algorithm[type_algorithm] << "\n";
+  //Creamos el vector en donde va a estar guardado el vector ordenado
+  std::vector<clave> secuencia_ordenada;
   switch (type_algorithm)
   {
-    case 1: AEDA::Insercion::Insercion<clave>(secuencia, n);
+    case 1: secuencia_ordenada = AEDA::Insercion::Insercion<clave>(secuencia, n);
       break;
-    case 2: AEDA::BubbleSort::BubbleSort<clave>(secuencia, n);
+    case 2: secuencia_ordenada = AEDA::BubbleSort::BubbleSort<clave>(secuencia, n);
       break;
-    case 3: AEDA::HeapSort::HeapSort<clave>(secuencia, n);
+    case 3: secuencia_ordenada = AEDA::HeapSort::HeapSort<clave>(secuencia, n);
       break;
-    case 4: AEDA::QuickSort::QuickSort<clave>(secuencia,0,n-1);
+    case 4: secuencia_ordenada = AEDA::QuickSort::QuickSort<clave>(secuencia,0,n-1);
+      break;
+    case 5: 
+      double a;
+      std::cout << "Elegir constante reduccion alfa[0 < a < 1]: ";
+      std::cin >> a;
+      while(a <= 0 || a >= 1)
+      {
+        std::cout << "Error\nElegir constante reduccion alfa[0 < a < 1]: ";
+        std::cin >> a;
+      }
+      secuencia_ordenada = AEDA::ShellSort::ShellSort<clave>(secuencia,n,a);
       break;
   }
   //Mostrar Secuencia Ordenada
   std::cout << "Vector Ordenado\n";
-  for(auto d : secuencia)
+  for(auto d : secuencia_ordenada)
   {
     std::cout << d << "  ";
   }
