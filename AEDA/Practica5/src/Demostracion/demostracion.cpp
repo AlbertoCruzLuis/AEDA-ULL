@@ -18,6 +18,7 @@
 #include "../../include/ShellSort.h"
 #include "../../include/QuickSort.h"
 #include "../../include/Dni.h"
+#include "../../include/ISBN.h"
 
 void demostracion()
 {
@@ -56,7 +57,8 @@ void demostracion()
 
   // 2)Generar aleatoriamente una secuencia de tamaño N ​de objetos DNI​
   //Definir la clave
-  typedef AEDA::Dni clave;
+  //typedef AEDA::Dni clave;
+  typedef AEDA::ISBN clave;
   srand(time(NULL));
   std::vector<clave> secuencia(n);
   for(int i = 0; i < secuencia.size(); i++)

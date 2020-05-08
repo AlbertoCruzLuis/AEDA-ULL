@@ -21,6 +21,7 @@
 #include "../../include/ShellSort.h"
 #include "../../include/Contador.h"
 #include "../../include/Dni.h"
+#include "../../include/ISBN.h"
 #include "../../include/DatosEstaditicos.h"
 
 void estadistica()
@@ -30,9 +31,9 @@ void estadistica()
   std::cout << "---------------------\n";
   // 1) Solicitar Parametros Experimento
   int n;
-  std::cout << "Tamaño de Secuencia [1..25]: ";
+  std::cout << "Tamaño de Secuencia [1..1000]: ";
   std::cin >> n;
-  while(n < 1 || n > 25)
+  while(n < 1 || n > 1000)
   {
     std::cout << "Error\nIntroducir el numero de secuencia entre [1..25]: ";
     std::cin >> n;
@@ -42,7 +43,8 @@ void estadistica()
   std::cin >> nPruebas;
 
   //Definir la clave
-  typedef AEDA::Dni clave;
+  //typedef AEDA::Dni clave;
+  typedef AEDA::ISBN clave;
 
   // 2) Crear Banco de Pruebas aleatoriamnete de secuencias Tipo DNI 
   std::vector<std::vector<clave>> banco_pruebas(nPruebas);
