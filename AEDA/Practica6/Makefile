@@ -1,11 +1,11 @@
-CXX       := g++
-CXX_FLAGS := #-Wall
-
 BIN     := bin
 SRC     := src
 INCLUDE := include
-LIBRARIES		:= $(INCLUDE)/*.h
+LIBRARIES		:= 
 EXECUTABLE  := main
+
+CXX       := g++
+CXX_FLAGS := -I$(INCLUDE)
 
 all: $(BIN)/$(EXECUTABLE)
 

@@ -35,7 +35,6 @@ class DatosEstaditicos
     std::vector<data> vComparaciones_;
 };
 
-//Param @datos_comparaciones
 template<class data>
 DatosEstaditicos<data>::DatosEstaditicos(std::vector<data>& datos_comparaciones)
 {

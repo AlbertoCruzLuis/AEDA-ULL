@@ -6,7 +6,7 @@
 //@Version: Práctica 6 - ​​ Implementación de un árbol binario de búsqueda
 //=======================================================================
 
-#include "../include/Dni.h"
+#include "Dni.h"
 
 namespace AEDA
 {
@@ -129,10 +129,15 @@ bool Dni::operator>(Dni& dni)
 
 std::istream& operator>>(std::istream& is, Dni& dni)
 {
-  std::cout << "Introducir los 8 Digitos del Dni\n";
-  for(int i = 0; i < dni.get_id().size(); i++)
+  std::cout << "Introducir Dni hasta 8 digitos\n";
+  //Si pone mas de 8 digitos se cogeran los ultimos 8 valores
+  unsigned long ldni;
+  is >> ldni;
+  // Convertir de long a dni
+  for(int i = 7; i >= 0; i--)
   {
-    is >> dni.get_id()[i];
+    dni.id_[i] = ldni % 10;
+    ldni /= 10; 
   }
   return is;
 }

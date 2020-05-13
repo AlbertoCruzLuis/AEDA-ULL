@@ -47,6 +47,7 @@ ArbolBB<Clave>::~ArbolBB()
 template <class Clave>
 Nodo<Clave>* ArbolBB<Clave>::Buscar(Clave dato)
 {
+  //std::cout << "Clave a Buscar: " << dato << "\n"; 
   return BuscarRama(this->get_raiz(), dato);
 }
 
@@ -59,7 +60,7 @@ Nodo<Clave>* ArbolBB<Clave>::BuscarRama(Nodo<Clave>* nodo, Clave dato)
     return nodo;
   if(dato < nodo->get_dato())
     return BuscarRama(nodo->get_izq(), dato);
-  return BuscarRama(nodo->get_izq(), dato);
+  return BuscarRama(nodo->get_dcho(), dato);
 }
 
 //Insertar un nodo en el arbol

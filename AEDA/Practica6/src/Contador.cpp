@@ -6,7 +6,7 @@
 //@Version: Práctica 6 - ​​ Implementación de un árbol binario de búsqueda
 //=======================================================================
 
-#include "../include/Contador.h"
+#include "Contador.h"
 
 namespace AEDA
 {
