@@ -2,7 +2,7 @@
 //@Autor: Alberto Cruz Luis
 //@Email: alu0101217734@ull.edu.es
 //@Fecha: Abril 2020
-//@Name: ArbolBB.h
+//@Name: ArbolB.h
 //@Version: Práctica 6 - ​​ Implementación de un árbol binario de búsqueda
 //=======================================================================
 
@@ -26,10 +26,14 @@ class ArbolB
     void Podar(Nodo<Clave>*&);
     bool EsVacio(Nodo<Clave>*);
     bool EsHoja(Nodo<Clave>*);
+    const int Tam();
+    const bool Equilibrado();
     void RecorreNivel();
 
   protected:
     Nodo<Clave>* raiz_;
+    const int TamRama(Nodo<Clave>* nodo);
+    const bool EquilibrioRama(Nodo<Clave> *nodo);
 };
 
 template <class Clave>
@@ -70,6 +74,42 @@ void ArbolB<Clave>::Podar(Nodo<Clave>* &nodo)
   Podar(nodo->get_dcho());   //Podar subarbol derecho
   delete nodo;
   nodo = nullptr;
+}
+
+template <class Clave>
+const int ArbolB<Clave>::Tam()
+{
+  return TamRama(raiz_);
+}
+
+template <class Clave>
+const int ArbolB<Clave>::TamRama(Nodo<Clave>* nodo)
+{
+  if (nodo == NULL) return 0;
+  return (1 + TamRama(nodo->get_izq()) +
+              TamRama(nodo->get_dcho()));
+}
+
+template <class Clave>
+const bool ArbolB<Clave>::Equilibrado()
+{
+  return EquilibrioRama(raiz_);
+}
+
+template <class Clave>
+const bool ArbolB<Clave>::EquilibrioRama(Nodo<Clave> *nodo)
+{
+  if (nodo == NULL) return true;
+  int eq = TamRama(nodo->get_izq()) - TamRama(nodo->get_dcho());
+  switch (eq)
+  {
+    case -1:
+    case 0:
+    case 1:
+      return EquilibrioRama(nodo->get_izq()) && EquilibrioRama(nodo->get_dcho());
+
+    default: return false;
+  }
 }
 
 template <class Clave>

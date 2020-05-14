@@ -2,7 +2,7 @@
 //@Autor: Alberto Cruz Luis
 //@Email: alu0101217734@ull.edu.es
 //@Fecha: Abril 2020
-//@Name: Dni.h
+//@Name: DatosEstadisticos.h
 //@Version: Práctica 5 - ​Implementación de métodos de ordenación
 //==============================================================
 

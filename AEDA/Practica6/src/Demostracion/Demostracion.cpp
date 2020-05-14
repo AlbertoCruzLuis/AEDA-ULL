@@ -30,10 +30,10 @@ void demostracion()
     while (mode != 0)
     {
       //Menu Opciones
-      std::cout << "\n[0] Salir\n[1] Insertar Clave\n[2] Eliminar Clave\n";
+      std::cout << "\n[0] Salir\n[1] Insertar Clave\n[2] Eliminar Clave\t[3] Equilibrado\n";
       std::cout << "Opcion: ";
       std::cin >> mode;
-      while (mode < 0 || mode > 2)
+      while (mode < 0 || mode > 3)
       {
         std::cout << "Error.\nOpcion Incorrecta\n";
         std::cout << "Opcion: ";
@@ -46,8 +46,11 @@ void demostracion()
 
       //Pedir Clave
       clave dato;
-      std::cout << "Introducir la Clave\n";
-      std::cin >> dato;
+      if(mode != 3)
+      {
+        std::cout << "Introducir la Clave\n";
+        std::cin >> dato;
+      }
 
       //Realizar una Opcion
       switch (mode)
@@ -58,6 +61,11 @@ void demostracion()
         case 2: std::cout << "-> Eliminar: " << dato << "\n";
           ABB.Eliminar(dato);
           break;
+        case 3: 
+          if(ABB.Equilibrado())
+            std::cout << "Arbol Totalmente Equilibrado\n";
+          else
+            std::cout << "Arbol No Equilibrado\n";
         default:
           throw mode;
       }
