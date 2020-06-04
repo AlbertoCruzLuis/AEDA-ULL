@@ -1,6 +1,10 @@
 # Practicas Algoritmos y Estructuras de Datos Avanzado
 Estas practicas se han hecho en la asignatura de AEDA de la ULL 2019/2020
 
+### Pasos para Ejecutar el programa
+    # make
+    # make run
+
 ### [Practica1](AEDA/Practica1)
 ### [Practica2](AEDA/Practica2)
 ### [Practica3](AEDA/Practica3)
